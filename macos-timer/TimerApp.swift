@@ -2,16 +2,11 @@ import SwiftUI
 
 @main
 struct TimerApp: App {
-    @StateObject private var timer = TimerModel()
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     var body: some Scene {
-        MenuBarExtra {
-            TimerView()
-                .environmentObject(timer)
-        } label: {
-            Text(timer.menuBarText)
-                .monospacedDigit()
+        Settings {
+            EmptyView()
         }
-        .menuBarExtraStyle(.window)
     }
 }

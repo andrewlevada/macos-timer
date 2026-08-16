@@ -20,11 +20,11 @@ final class TimerModel: ObservableObject {
     var menuBarText: String {
         switch state {
         case .idle:
-            return "⏱"
+            return Self.formatTime(selectedMinutes * 60)
         case .running, .paused:
-            return formatTime(remainingSeconds)
+            return Self.formatTime(remainingSeconds)
         case .finished:
-            return "Done!"
+            return Self.formatTime(0)
         }
     }
 
@@ -118,9 +118,14 @@ final class TimerModel: ObservableObject {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
     }
 
-    private func formatTime(_ seconds: Int) -> String {
-        let minutes = seconds / 60
+    static func formatTime(_ seconds: Int) -> String {
+        let hours = seconds / 3600
+        let minutes = (seconds % 3600) / 60
         let secs = seconds % 60
-        return String(format: "%d:%02d", minutes, secs)
+
+        if hours > 0 {
+            return String(format: "%d:%02d:%02d", hours, minutes, secs)
+        }
+        return String(format: "%02d:%02d", minutes, secs)
     }
 }

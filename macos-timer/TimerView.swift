@@ -8,7 +8,7 @@ struct TimerView: View {
     var body: some View {
         VStack(spacing: 16) {
             Text(timer.menuBarText)
-                .font(.system(size: 36, weight: .medium, design: .rounded))
+                .font(TimerTypography.popover)
                 .monospacedDigit()
                 .contentTransition(.numericText())
 

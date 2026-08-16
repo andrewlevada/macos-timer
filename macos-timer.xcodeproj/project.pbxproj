@@ -10,6 +10,10 @@
 		B10000000000000000000001 /* TimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000011 /* TimerApp.swift */; };
 		B10000000000000000000002 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000012 /* TimerModel.swift */; };
 		B10000000000000000000003 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000013 /* TimerView.swift */; };
+		B10000000000000000000004 /* MenuBarTimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* MenuBarTimerLabel.swift */; };
+		B10000000000000000000005 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* StatusBarController.swift */; };
+		B10000000000000000000006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000017 /* AppDelegate.swift */; };
+		B10000000000000000000007 /* TimerTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000018 /* TimerTypography.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +22,10 @@
 		B10000000000000000000012 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		B10000000000000000000013 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		B10000000000000000000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10000000000000000000015 /* MenuBarTimerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarTimerLabel.swift; sourceTree = "<group>"; };
+		B10000000000000000000016 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		B10000000000000000000017 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B10000000000000000000018 /* TimerTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTypography.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,10 @@
 				B10000000000000000000011 /* TimerApp.swift */,
 				B10000000000000000000012 /* TimerModel.swift */,
 				B10000000000000000000013 /* TimerView.swift */,
+				B10000000000000000000015 /* MenuBarTimerLabel.swift */,
+				B10000000000000000000016 /* StatusBarController.swift */,
+				B10000000000000000000017 /* AppDelegate.swift */,
+				B10000000000000000000018 /* TimerTypography.swift */,
 				B10000000000000000000014 /* Info.plist */,
 			);
 			path = "macos-timer";
@@ -118,6 +130,10 @@
 				B10000000000000000000001 /* TimerApp.swift in Sources */,
 				B10000000000000000000002 /* TimerModel.swift in Sources */,
 				B10000000000000000000003 /* TimerView.swift in Sources */,
+				B10000000000000000000004 /* MenuBarTimerLabel.swift in Sources */,
+				B10000000000000000000005 /* StatusBarController.swift in Sources */,
+				B10000000000000000000006 /* AppDelegate.swift in Sources */,
+				B10000000000000000000007 /* TimerTypography.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
