@@ -10,17 +10,34 @@ final class TimerModel: ObservableObject {
         case finished
     }
 
+    static let minDuration = 60
+    static let maxDuration = 7_200
+
     @Published private(set) var state: State = .idle
     @Published private(set) var remainingSeconds: Int = 0
-    @Published var selectedMinutes: Int = 5
+    @Published var selectedSeconds: Int = 30 * 60
 
+    private var totalSeconds: Int = 0
     private var endDate: Date?
     private var tickTask: Task<Void, Never>?
+
+    var isEditable: Bool {
+        state == .idle || state == .finished
+    }
+
+    var readoutSeconds: Int {
+        switch state {
+        case .idle, .finished:
+            return selectedSeconds
+        case .running, .paused:
+            return remainingSeconds
+        }
+    }
 
     var menuBarText: String {
         switch state {
         case .idle:
-            return Self.formatTime(selectedMinutes * 60)
+            return Self.formatTime(selectedSeconds)
         case .running, .paused:
             return Self.formatTime(remainingSeconds)
         case .finished:
@@ -29,15 +46,19 @@ final class TimerModel: ObservableObject {
     }
 
     var progress: Double {
-        let total = selectedMinutes * 60
-        guard total > 0 else { return 0 }
-        return 1 - Double(remainingSeconds) / Double(total)
+        guard totalSeconds > 0 else { return 0 }
+        return 1 - Double(remainingSeconds) / Double(totalSeconds)
+    }
+
+    var scrubberFraction: Double {
+        Double(selectedSeconds - Self.minDuration) / Double(Self.maxDuration - Self.minDuration)
     }
 
     func start() {
         switch state {
         case .idle, .finished:
-            remainingSeconds = selectedMinutes * 60
+            totalSeconds = selectedSeconds
+            remainingSeconds = selectedSeconds
             endDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
             state = .running
             startTicking()
@@ -61,14 +82,31 @@ final class TimerModel: ObservableObject {
         tickTask?.cancel()
         tickTask = nil
         endDate = nil
-        remainingSeconds = selectedMinutes * 60
+        totalSeconds = 0
+        remainingSeconds = selectedSeconds
         state = .idle
     }
 
-    func setMinutes(_ minutes: Int) {
-        guard state == .idle || state == .finished else { return }
-        selectedMinutes = max(1, min(180, minutes))
-        remainingSeconds = selectedMinutes * 60
+    func setDuration(_ seconds: Int) {
+        guard isEditable else { return }
+        selectedSeconds = Self.snapToMinute(seconds)
+    }
+
+    func setPreset(minutes: Int) {
+        setDuration(minutes * 60)
+    }
+
+    func setScrubberFraction(_ fraction: Double) {
+        let clamped = max(0, min(1, fraction))
+        let minMinutes = Self.minDuration / 60
+        let maxMinutes = Self.maxDuration / 60
+        let minutes = minMinutes + Int((clamped * Double(maxMinutes - minMinutes)).rounded())
+        setDuration(minutes * 60)
+    }
+
+    static func snapToMinute(_ seconds: Int) -> Int {
+        let minutes = max(minDuration / 60, min(maxDuration / 60, Int((Double(seconds) / 60).rounded())))
+        return minutes * 60
     }
 
     private func startTicking() {
@@ -103,7 +141,7 @@ final class TimerModel: ObservableObject {
     private func notifyFinished() {
         let content = UNMutableNotificationContent()
         content.title = "Timer finished"
-        content.body = "Your \(selectedMinutes)-minute timer is done."
+        content.body = "Your \(Self.formatTime(totalSeconds)) timer is done."
 
         let request = UNNotificationRequest(
             identifier: UUID().uuidString,
