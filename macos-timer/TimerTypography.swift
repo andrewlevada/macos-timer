@@ -1,9 +1,13 @@
 import SwiftUI
 
+enum PanelLayout {
+    static let width: CGFloat = 320
+    static let height: CGFloat = 152
+    static let contentHeight: CGFloat = 120
+}
+
 enum TimerTheme {
-    static let glassTint = Color(white: 0.12, opacity: 0.78)
-    static let glassHighlight = Color.white.opacity(0.1)
-    static let panelBorder = Color.white.opacity(0.2)
+    static let panelBorder = Color.white.opacity(0.34)
     static let tick = Color(white: 0.72, opacity: 0.32)
     static let indicator = Color(white: 0.98, opacity: 0.95)
     static let label = Color.white

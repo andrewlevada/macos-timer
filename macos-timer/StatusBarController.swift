@@ -4,7 +4,7 @@ import SwiftUI
 
 @MainActor
 final class StatusBarController: NSObject {
-    private let timer: TimerModel
+    private let coordinator: AppCoordinator
     private var statusItem: NSStatusItem?
     private var hostingView: MenuBarHostingView<MenuBarTimerLabel>?
     private var panel: TimerFloatingPanel?
@@ -13,11 +13,11 @@ final class StatusBarController: NSObject {
     private var resignActiveObserver: NSObjectProtocol?
     private var cancellables = Set<AnyCancellable>()
 
-    init(timer: TimerModel) {
-        self.timer = timer
+    init(coordinator: AppCoordinator) {
+        self.coordinator = coordinator
         super.init()
         setupStatusItem()
-        observeTimer()
+        observeCoordinator()
     }
 
     deinit {
@@ -44,8 +44,8 @@ final class StatusBarController: NSObject {
         updateLabel()
     }
 
-    private func observeTimer() {
-        timer.objectWillChange
+    private func observeCoordinator() {
+        coordinator.objectWillChange
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.updateLabel()
@@ -56,7 +56,10 @@ final class StatusBarController: NSObject {
     private func updateLabel() {
         guard let button = statusItem?.button else { return }
 
-        let label = MenuBarTimerLabel(text: timer.menuBarText)
+        let label = MenuBarTimerLabel(
+            text: coordinator.menuBarText,
+            showsTomatoIcon: coordinator.menuBarShowsTomatoIcon
+        )
 
         if let hostingView {
             hostingView.rootView = label
@@ -86,21 +89,37 @@ final class StatusBarController: NSObject {
 
         guard let button = statusItem?.button else { return }
 
-        let hostingController = NSHostingController(
-            rootView: TimerView().environmentObject(timer)
-        )
-        hostingController.view.wantsLayer = true
-        hostingController.view.layer?.backgroundColor = NSColor.clear.cgColor
+        let rootView = RootPanelView()
+            .environmentObject(coordinator)
+            .environmentObject(coordinator.simpleTimer)
+            .environmentObject(coordinator.pomodoro)
 
-        let panel = TimerFloatingPanel(contentViewController: hostingController)
+        let panelController = GlassPanelViewController(rootView: rootView)
+
+        let panel = TimerFloatingPanel(contentViewController: panelController)
         self.panel = panel
 
-        let panelWidth: CGFloat = 320
-        let panelHeight: CGFloat = 190
+        let panelWidth = PanelLayout.width
+        let panelHeight = PanelLayout.height
         let origin = panelOrigin(for: button, width: panelWidth, height: panelHeight)
         panel.setFrame(NSRect(origin: origin, size: NSSize(width: panelWidth, height: panelHeight)), display: true)
         panel.makeKeyAndOrderFront(nil)
+        configureTransparentWindow(for: panel)
         startOutsideClickMonitoring()
+    }
+
+    private func configureTransparentWindow(for panel: NSPanel) {
+        panel.isOpaque = false
+        panel.backgroundColor = .clear
+        panel.contentView?.wantsLayer = true
+        panel.contentView?.layer?.backgroundColor = NSColor.clear.cgColor
+
+        DispatchQueue.main.async {
+            guard let window = panel.contentView?.window else { return }
+            window.isOpaque = false
+            window.backgroundColor = .clear
+            window.hasShadow = true
+        }
     }
 
     private func panelOrigin(for button: NSStatusBarButton, width: CGFloat, height: CGFloat) -> NSPoint {

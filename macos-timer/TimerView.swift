@@ -6,7 +6,7 @@ struct TimerView: View {
     private let presets = [5, 10, 15, 30, 45, 60]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 4) {
             DurationScrubberView(
                 seconds: Binding(
                     get: { timer.selectedSeconds },
@@ -19,44 +19,10 @@ struct TimerView: View {
             presetRow
 
             bottomRow
-
-            if !timer.isEditable {
-                HStack {
-                    Button("reset") {
-                        timer.reset()
-                    }
-                    .buttonStyle(SecondaryActionButtonStyle())
-
-                    Spacer()
-                }
-            }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(.horizontal, 10)
-        .padding(.top, 6)
-        .padding(.bottom, 9)
-        .frame(width: 320)
-        .background {
-            ZStack {
-                GlassBackground(cornerRadius: 16)
-
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(TimerTheme.glassTint)
-
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(
-                        LinearGradient(
-                            colors: [TimerTheme.glassHighlight, .clear],
-                            startPoint: .top,
-                            endPoint: .center
-                        )
-                    )
-
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .strokeBorder(TimerTheme.panelBorder, lineWidth: 0.5)
-            }
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.bottom, 6)
         .onAppear {
             timer.requestNotificationPermission()
         }
@@ -93,12 +59,19 @@ struct TimerView: View {
     }
 
     private var bottomRow: some View {
-        HStack(alignment: .lastTextBaseline) {
+        HStack(alignment: .lastTextBaseline, spacing: 12) {
             Button(primaryActionTitle) {
                 performPrimaryAction()
             }
             .buttonStyle(ActionButtonStyle())
             .disabled(timer.state == .finished)
+
+            if !timer.isEditable {
+                Button("finish") {
+                    timer.reset()
+                }
+                .buttonStyle(SecondaryActionButtonStyle())
+            }
 
             Spacer()
 

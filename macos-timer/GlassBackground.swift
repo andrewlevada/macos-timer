@@ -6,7 +6,7 @@ struct GlassBackground: NSViewRepresentable {
 
     func makeNSView(context: Context) -> NSVisualEffectView {
         let view = NSVisualEffectView()
-        view.material = .hudWindow
+        view.material = .underWindowBackground
         view.blendingMode = .behindWindow
         view.state = .active
         view.isEmphasized = true
@@ -18,6 +18,9 @@ struct GlassBackground: NSViewRepresentable {
     }
 
     func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
+        nsView.material = .underWindowBackground
+        nsView.state = .active
+        nsView.isEmphasized = true
         nsView.layer?.cornerRadius = cornerRadius
     }
 }

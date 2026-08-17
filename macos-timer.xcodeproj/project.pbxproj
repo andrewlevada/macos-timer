@@ -17,6 +17,16 @@
 		B10000000000000000000008 /* DurationScrubberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000019 /* DurationScrubberView.swift */; };
 		B10000000000000000000009 /* GlassBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001A /* GlassBackground.swift */; };
 		B1000000000000000000000A /* TimerFloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001B /* TimerFloatingPanel.swift */; };
+		B1000000000000000000000B /* GlassPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001C /* GlassPanelViewController.swift */; };
+		B1000000000000000000000C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001D /* AppCoordinator.swift */; };
+		B1000000000000000000000D /* RootPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001E /* RootPanelView.swift */; };
+		B1000000000000000000000E /* PomodoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001F /* PomodoroView.swift */; };
+		B1000000000000000000000F /* PomodoroPresetEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000002B /* PomodoroPresetEditorView.swift */; };
+		B10000000000000000000026 /* PomodoroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000021 /* PomodoroModel.swift */; };
+		B10000000000000000000027 /* PomodoroPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000022 /* PomodoroPreset.swift */; };
+		B10000000000000000000028 /* PomodoroStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000023 /* PomodoroStore.swift */; };
+		B1000000000000000000002A /* TimerButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000025 /* TimerButtonStyles.swift */; };
+		B1000000000000000000002D /* TomatoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000002C /* TomatoIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +42,16 @@
 		B10000000000000000000019 /* DurationScrubberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationScrubberView.swift; sourceTree = "<group>"; };
 		B1000000000000000000001A /* GlassBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassBackground.swift; sourceTree = "<group>"; };
 		B1000000000000000000001B /* TimerFloatingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFloatingPanel.swift; sourceTree = "<group>"; };
+		B1000000000000000000001C /* GlassPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassPanelViewController.swift; sourceTree = "<group>"; };
+		B1000000000000000000001D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		B1000000000000000000001E /* RootPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPanelView.swift; sourceTree = "<group>"; };
+		B1000000000000000000001F /* PomodoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroView.swift; sourceTree = "<group>"; };
+		B1000000000000000000002B /* PomodoroPresetEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPresetEditorView.swift; sourceTree = "<group>"; };
+		B10000000000000000000021 /* PomodoroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroModel.swift; sourceTree = "<group>"; };
+		B10000000000000000000022 /* PomodoroPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPreset.swift; sourceTree = "<group>"; };
+		B10000000000000000000023 /* PomodoroStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroStore.swift; sourceTree = "<group>"; };
+		B10000000000000000000025 /* TimerButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButtonStyles.swift; sourceTree = "<group>"; };
+		B1000000000000000000002C /* TomatoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomatoIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +86,16 @@
 				B10000000000000000000019 /* DurationScrubberView.swift */,
 				B1000000000000000000001A /* GlassBackground.swift */,
 				B1000000000000000000001B /* TimerFloatingPanel.swift */,
+				B1000000000000000000001C /* GlassPanelViewController.swift */,
+				B1000000000000000000001D /* AppCoordinator.swift */,
+				B1000000000000000000001E /* RootPanelView.swift */,
+				B1000000000000000000001F /* PomodoroView.swift */,
+				B1000000000000000000002B /* PomodoroPresetEditorView.swift */,
+				B10000000000000000000021 /* PomodoroModel.swift */,
+				B10000000000000000000022 /* PomodoroPreset.swift */,
+				B10000000000000000000023 /* PomodoroStore.swift */,
+				B10000000000000000000025 /* TimerButtonStyles.swift */,
+				B1000000000000000000002C /* TomatoIcon.swift */,
 				B10000000000000000000014 /* Info.plist */,
 			);
 			path = "macos-timer";
@@ -146,6 +176,16 @@
 				B10000000000000000000008 /* DurationScrubberView.swift in Sources */,
 				B10000000000000000000009 /* GlassBackground.swift in Sources */,
 				B1000000000000000000000A /* TimerFloatingPanel.swift in Sources */,
+				B1000000000000000000000B /* GlassPanelViewController.swift in Sources */,
+				B1000000000000000000000C /* AppCoordinator.swift in Sources */,
+				B1000000000000000000000D /* RootPanelView.swift in Sources */,
+				B1000000000000000000000E /* PomodoroView.swift in Sources */,
+				B1000000000000000000000F /* PomodoroPresetEditorView.swift in Sources */,
+				B10000000000000000000026 /* PomodoroModel.swift in Sources */,
+				B10000000000000000000027 /* PomodoroPreset.swift in Sources */,
+				B10000000000000000000028 /* PomodoroStore.swift in Sources */,
+				B1000000000000000000002A /* TimerButtonStyles.swift in Sources */,
+				B1000000000000000000002D /* TomatoIcon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

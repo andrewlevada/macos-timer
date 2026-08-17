@@ -140,8 +140,8 @@ final class TimerModel: ObservableObject {
 
     private func notifyFinished() {
         let content = UNMutableNotificationContent()
-        content.title = "Timer finished"
-        content.body = "Your \(Self.formatTime(totalSeconds)) timer is done."
+        content.title = "timer finished"
+        content.body = "your \(Self.formatTime(totalSeconds)) timer is done."
 
         let request = UNNotificationRequest(
             identifier: UUID().uuidString,
