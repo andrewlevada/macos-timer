@@ -1,26 +1,13 @@
-# macOS Menu Bar Timer
+# macos-timer
 
-A simple countdown timer that lives in your menu bar. Set a duration, start it, and watch the remaining time tick down in the menu bar.
+menu bar timer and pomodoro for macOS.
 
-Inspired by [Onigiri](https://apps.apple.com/us/app/onigiri-minimal-timer/id1639917298) — the UX/UI borrows heavily from their menu bar timer design.
+timer screen inspired by [onigiri](https://apps.apple.com/us/app/onigiri-minimal-timer/id1639917298). pomodoro is my own.
 
-## Features
+## run
 
-- Menu bar countdown with a stroked label
-- Scrubber ruler for picking any minute duration
-- Quick presets: 5m, 10m, 15m, 30m, 45m, 1h
-- Start, pause, resume, and reset
-- Notification when the timer finishes
-- Frosted glass popover panel
+```bash
+killall macos-timer 2>/dev/null; xcodebuild -project macos-timer.xcodeproj -scheme macos-timer -configuration Debug -derivedDataPath build CODE_SIGN_IDENTITY="-" CODE_SIGNING_ALLOWED=NO build && open build/Build/Products/Debug/macos-timer.app
+```
 
-## Requirements
-
-- macOS 13 (Ventura) or later
-- Xcode 15+
-
-## Run
-
-1. Open `macos-timer.xcodeproj` in Xcode
-2. Press **Cmd+R**
-
-Click the timer in the menu bar to open the panel. Click outside to close it. Use **⋯ → quit** to exit the app.
+macOS 13+. click the menu bar label to open. click outside to close. ⋯ → quit to exit.
