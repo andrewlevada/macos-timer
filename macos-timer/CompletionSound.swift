@@ -6,32 +6,61 @@ enum CompletionSound: String, CaseIterable, Identifiable, Codable {
     case glass
     case ping
     case pop
-    case tink
     case submarine
+    case pluck
 
     var id: String { rawValue }
 
     var label: String { rawValue }
 
     func play() {
-        guard let name = systemName, let sound = NSSound(named: name) else {
-            if self != .none {
+        switch source {
+        case .none:
+            return
+        case .system(let name):
+            if let sound = NSSound(named: name) {
+                sound.play()
+            } else {
                 NSSound.beep()
             }
-            return
+        case .bundled(let filename):
+            guard
+                let url = bundledURL(for: filename),
+                let sound = NSSound(contentsOf: url, byReference: true)
+            else {
+                NSSound.beep()
+                return
+            }
+            sound.play()
         }
-        sound.play()
     }
 
-    private var systemName: String? {
+    private enum Source {
+        case none
+        case system(String)
+        case bundled(String)
+    }
+
+    private var source: Source {
         switch self {
-        case .none: return nil
-        case .glass: return "Glass"
-        case .ping: return "Ping"
-        case .pop: return "Pop"
-        case .tink: return "Tink"
-        case .submarine: return "Submarine"
+        case .none: return .none
+        case .glass: return .system("Glass")
+        case .ping: return .system("Ping")
+        case .pop: return .system("Pop")
+        case .submarine: return .system("Submarine")
+        case .pluck: return .bundled("pluck.wav")
         }
+    }
+
+    private func bundledURL(for filename: String) -> URL? {
+        let base = (filename as NSString).deletingPathExtension
+        let ext = (filename as NSString).pathExtension
+
+        if let url = Bundle.main.url(forResource: base, withExtension: ext, subdirectory: "Sounds") {
+            return url
+        }
+
+        return Bundle.main.url(forResource: base, withExtension: ext)
     }
 }
 

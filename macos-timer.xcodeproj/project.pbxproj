@@ -28,6 +28,7 @@
 		B1000000000000000000002A /* TimerButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000025 /* TimerButtonStyles.swift */; };
 		B1000000000000000000002D /* TomatoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000002C /* TomatoIcon.swift */; };
 		B1000000000000000000002F /* CompletionSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000002E /* CompletionSound.swift */; };
+		B1000000000000000000004A /* pluck.wav in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000046 /* pluck.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		B10000000000000000000025 /* TimerButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButtonStyles.swift; sourceTree = "<group>"; };
 		B1000000000000000000002C /* TomatoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomatoIcon.swift; sourceTree = "<group>"; };
 		B1000000000000000000002E /* CompletionSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSound.swift; sourceTree = "<group>"; };
+		B10000000000000000000046 /* pluck.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pluck.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B10000000000000000000042 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1000000000000000000004A /* pluck.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXGroup section */
 		B10000000000000000000030 = {
@@ -99,9 +112,18 @@
 				B10000000000000000000025 /* TimerButtonStyles.swift */,
 				B1000000000000000000002C /* TomatoIcon.swift */,
 				B1000000000000000000002E /* CompletionSound.swift */,
+				B10000000000000000000043 /* Sounds */,
 				B10000000000000000000014 /* Info.plist */,
 			);
 			path = "macos-timer";
+			sourceTree = "<group>";
+		};
+		B10000000000000000000043 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000046 /* pluck.wav */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		B10000000000000000000032 /* Products */ = {
@@ -120,6 +142,7 @@
 			buildConfigurationList = B10000000000000000000050 /* Build configuration list for PBXNativeTarget "macos-timer" */;
 			buildPhases = (
 				B10000000000000000000041 /* Sources */,
+				B10000000000000000000042 /* Resources */,
 				B10000000000000000000020 /* Frameworks */,
 			);
 			buildRules = (

@@ -111,15 +111,7 @@ private struct TimerSettingsMenu: View, Equatable {
         Menu {
             Menu("sound") {
                 ForEach(CompletionSound.allCases) { sound in
-                    Button {
-                        timer.setCompletionSound(sound)
-                    } label: {
-                        if completionSound == sound {
-                            Label(sound.label, systemImage: "checkmark")
-                        } else {
-                            Text(sound.label)
-                        }
-                    }
+                    soundButton(sound)
                 }
             }
 
@@ -134,6 +126,18 @@ private struct TimerSettingsMenu: View, Equatable {
         .menuStyle(.borderlessButton)
         .menuIndicator(.hidden)
         .fixedSize()
+    }
+
+    private func soundButton(_ sound: CompletionSound) -> some View {
+        Button {
+            timer.setCompletionSound(sound)
+        } label: {
+            if completionSound == sound {
+                Label(sound.label, systemImage: "checkmark")
+            } else {
+                Text(sound.label)
+            }
+        }
     }
 }
 
