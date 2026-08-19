@@ -39,8 +39,10 @@ struct RootPanelView: View {
             )
         }
         .frame(width: PanelLayout.width, height: PanelLayout.height)
+        .background(Color.clear)
+        .clipShape(RoundedRectangle(cornerRadius: PanelLayout.cornerRadius, style: .continuous))
         .overlay {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: PanelLayout.cornerRadius, style: .continuous)
                 .strokeBorder(TimerTheme.panelBorder, lineWidth: 0.75)
         }
         .onAppear {

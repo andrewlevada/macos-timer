@@ -3,11 +3,10 @@ import SwiftUI
 
 final class GlassPanelViewController<Content: View>: NSViewController {
     private let effectView = NSVisualEffectView()
-    private let frostOverlay = NSView()
-    private let hostingController: NSHostingController<Content>
+    private let hostingView: PanelHostingView<Content>
 
     init(rootView: Content) {
-        hostingController = NSHostingController(rootView: rootView)
+        hostingView = PanelHostingView(rootView: rootView)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -17,38 +16,50 @@ final class GlassPanelViewController<Content: View>: NSViewController {
     }
 
     override func loadView() {
+        let cornerRadius = PanelLayout.cornerRadius
+
         effectView.material = .menu
         effectView.blendingMode = .behindWindow
         effectView.state = .followsWindowActiveState
         effectView.isEmphasized = false
         effectView.wantsLayer = true
-        effectView.layer?.cornerRadius = 16
+        effectView.layer?.cornerRadius = cornerRadius
         effectView.layer?.cornerCurve = .continuous
         effectView.layer?.masksToBounds = true
 
-        frostOverlay.wantsLayer = true
-        frostOverlay.layer?.backgroundColor = NSColor.white.withAlphaComponent(0.01).cgColor
-        frostOverlay.translatesAutoresizingMaskIntoConstraints = false
+        hostingView.translatesAutoresizingMaskIntoConstraints = false
 
-        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        hostingController.view.wantsLayer = true
-        hostingController.view.layer?.backgroundColor = NSColor.clear.cgColor
-
-        effectView.addSubview(frostOverlay)
-        effectView.addSubview(hostingController.view)
+        effectView.addSubview(hostingView)
 
         NSLayoutConstraint.activate([
-            frostOverlay.leadingAnchor.constraint(equalTo: effectView.leadingAnchor),
-            frostOverlay.trailingAnchor.constraint(equalTo: effectView.trailingAnchor),
-            frostOverlay.topAnchor.constraint(equalTo: effectView.topAnchor),
-            frostOverlay.bottomAnchor.constraint(equalTo: effectView.bottomAnchor),
-
-            hostingController.view.leadingAnchor.constraint(equalTo: effectView.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: effectView.trailingAnchor),
-            hostingController.view.topAnchor.constraint(equalTo: effectView.topAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: effectView.bottomAnchor),
+            hostingView.leadingAnchor.constraint(equalTo: effectView.leadingAnchor),
+            hostingView.trailingAnchor.constraint(equalTo: effectView.trailingAnchor),
+            hostingView.topAnchor.constraint(equalTo: effectView.topAnchor),
+            hostingView.bottomAnchor.constraint(equalTo: effectView.bottomAnchor),
         ])
 
         view = effectView
+    }
+}
+
+final class PanelHostingView<Content: View>: NSHostingView<Content> {
+    override var isOpaque: Bool { false }
+
+    required init(rootView: Content) {
+        super.init(rootView: rootView)
+        configureLayer()
+    }
+
+    @MainActor
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func configureLayer() {
+        wantsLayer = true
+        layer?.backgroundColor = NSColor.clear.cgColor
+        layer?.cornerRadius = PanelLayout.cornerRadius
+        layer?.cornerCurve = .continuous
+        layer?.masksToBounds = true
     }
 }

@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 import UserNotifications
 
@@ -16,10 +17,16 @@ final class TimerModel: ObservableObject {
     @Published private(set) var state: State = .idle
     @Published private(set) var remainingSeconds: Int = 0
     @Published var selectedSeconds: Int = 30 * 60
+    @Published var completionSound: CompletionSound
 
     private var totalSeconds: Int = 0
     private var endDate: Date?
     private var tickTask: Task<Void, Never>?
+    private let completionSoundStore = CompletionSoundStore()
+
+    init() {
+        completionSound = completionSoundStore.load()
+    }
 
     var isEditable: Bool {
         state == .idle || state == .finished
@@ -96,6 +103,14 @@ final class TimerModel: ObservableObject {
         setDuration(minutes * 60)
     }
 
+    func setCompletionSound(_ sound: CompletionSound) {
+        completionSound = sound
+        completionSoundStore.save(sound)
+        if sound != .none {
+            sound.play()
+        }
+    }
+
     func setScrubberFraction(_ fraction: Double) {
         let clamped = max(0, min(1, fraction))
         let minMinutes = Self.minDuration / 60
@@ -135,7 +150,13 @@ final class TimerModel: ObservableObject {
         self.endDate = nil
         remainingSeconds = 0
         state = .finished
+        playCompletionCue()
         notifyFinished()
+    }
+
+    private func playCompletionCue() {
+        NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .now)
+        completionSound.play()
     }
 
     private func notifyFinished() {

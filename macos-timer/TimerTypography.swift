@@ -4,6 +4,7 @@ enum PanelLayout {
     static let width: CGFloat = 320
     static let height: CGFloat = 152
     static let contentHeight: CGFloat = 120
+    static let cornerRadius: CGFloat = 16
 }
 
 enum TimerTheme {

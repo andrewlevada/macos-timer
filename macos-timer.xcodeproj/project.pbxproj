@@ -27,6 +27,7 @@
 		B10000000000000000000028 /* PomodoroStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000023 /* PomodoroStore.swift */; };
 		B1000000000000000000002A /* TimerButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000025 /* TimerButtonStyles.swift */; };
 		B1000000000000000000002D /* TomatoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000002C /* TomatoIcon.swift */; };
+		B1000000000000000000002F /* CompletionSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000002E /* CompletionSound.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		B10000000000000000000023 /* PomodoroStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroStore.swift; sourceTree = "<group>"; };
 		B10000000000000000000025 /* TimerButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButtonStyles.swift; sourceTree = "<group>"; };
 		B1000000000000000000002C /* TomatoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomatoIcon.swift; sourceTree = "<group>"; };
+		B1000000000000000000002E /* CompletionSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSound.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				B10000000000000000000023 /* PomodoroStore.swift */,
 				B10000000000000000000025 /* TimerButtonStyles.swift */,
 				B1000000000000000000002C /* TomatoIcon.swift */,
+				B1000000000000000000002E /* CompletionSound.swift */,
 				B10000000000000000000014 /* Info.plist */,
 			);
 			path = "macos-timer";
@@ -186,6 +189,7 @@
 				B10000000000000000000028 /* PomodoroStore.swift in Sources */,
 				B1000000000000000000002A /* TimerButtonStyles.swift in Sources */,
 				B1000000000000000000002D /* TomatoIcon.swift in Sources */,
+				B1000000000000000000002F /* CompletionSound.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

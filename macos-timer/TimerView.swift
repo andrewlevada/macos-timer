@@ -42,18 +42,8 @@ struct TimerView: View {
 
             Spacer(minLength: 8)
 
-            Menu {
-                Button("quit") {
-                    NSApplication.shared.terminate(nil)
-                }
-            } label: {
-                Image(systemName: "ellipsis")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(TimerTheme.labelMuted)
-            }
-            .menuStyle(.borderlessButton)
-            .menuIndicator(.hidden)
-            .fixedSize()
+            TimerSettingsMenu(completionSound: timer.completionSound)
+                .equatable()
         }
         .frame(maxWidth: .infinity)
     }
@@ -64,7 +54,6 @@ struct TimerView: View {
                 performPrimaryAction()
             }
             .buttonStyle(ActionButtonStyle())
-            .disabled(timer.state == .finished)
 
             if !timer.isEditable {
                 Button("finish") {
@@ -107,6 +96,44 @@ struct TimerView: View {
         case .paused:
             timer.start()
         }
+    }
+}
+
+private struct TimerSettingsMenu: View, Equatable {
+    @EnvironmentObject private var timer: TimerModel
+    let completionSound: CompletionSound
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.completionSound == rhs.completionSound
+    }
+
+    var body: some View {
+        Menu {
+            Menu("sound") {
+                ForEach(CompletionSound.allCases) { sound in
+                    Button {
+                        timer.setCompletionSound(sound)
+                    } label: {
+                        if completionSound == sound {
+                            Label(sound.label, systemImage: "checkmark")
+                        } else {
+                            Text(sound.label)
+                        }
+                    }
+                }
+            }
+
+            Button("quit") {
+                NSApplication.shared.terminate(nil)
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+                .font(.system(size: 14, weight: .medium))
+                .foregroundStyle(TimerTheme.labelMuted)
+        }
+        .menuStyle(.borderlessButton)
+        .menuIndicator(.hidden)
+        .fixedSize()
     }
 }
 
