@@ -155,7 +155,7 @@ final class StatusBarController: NSObject {
         localClickMonitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
             guard let self else { return event }
 
-            if event.window === self.panel || self.isClickOnStatusItem() {
+            if self.shouldKeepPanelOpen(for: event) {
                 return event
             }
 
@@ -166,9 +166,13 @@ final class StatusBarController: NSObject {
             return event
         }
 
-        globalClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] _ in
+        globalClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
             Task { @MainActor in
-                self?.closePanel()
+                guard let self else { return }
+                if self.shouldKeepPanelOpen(for: event) {
+                    return
+                }
+                self.closePanel()
             }
         }
 
@@ -178,9 +182,71 @@ final class StatusBarController: NSObject {
             queue: .main
         ) { [weak self] _ in
             Task { @MainActor in
-                self?.closePanel()
+                guard let self else { return }
+                if self.shouldPreventPanelClose() {
+                    return
+                }
+                self.closePanel()
             }
         }
+    }
+
+    private func shouldPreventPanelClose() -> Bool {
+        coordinator.pomodoro.isEditorPresented || hasOpenAuxiliaryWindow()
+    }
+
+    private func shouldKeepPanelOpen(for event: NSEvent) -> Bool {
+        if isClickOnStatusItem() {
+            return true
+        }
+
+        if let window = event.window, isAuxiliaryWindow(window) {
+            return true
+        }
+
+        return isMouseInsideRelevantWindows(at: NSEvent.mouseLocation)
+    }
+
+    private func hasOpenAuxiliaryWindow() -> Bool {
+        NSApp.windows.contains { window in
+            window.isVisible && isAuxiliaryWindow(window)
+        }
+    }
+
+    private func isAuxiliaryWindow(_ window: NSWindow) -> Bool {
+        guard let panel else { return false }
+        if window === panel {
+            return true
+        }
+
+        if window.parent === panel || window.sheetParent === panel {
+            return true
+        }
+
+        var parent = window.parent
+        while let current = parent {
+            if current === panel {
+                return true
+            }
+            parent = current.parent
+        }
+
+        return false
+    }
+
+    private func isMouseInsideRelevantWindows(at screenLocation: NSPoint) -> Bool {
+        if isClickOnStatusItem() {
+            return true
+        }
+
+        for window in NSApp.windows where window.isVisible {
+            guard isAuxiliaryWindow(window) else { continue }
+            if window.frame.contains(screenLocation) {
+                return true
+            }
+        }
+
+        return false
     }
 
     private func stopOutsideClickMonitoring() {

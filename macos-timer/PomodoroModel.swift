@@ -144,11 +144,13 @@ final class PomodoroModel: ObservableObject {
         preset.longBreakMinutes = max(1, preset.longBreakMinutes)
         preset.roundsBeforeLongBreak = max(1, preset.roundsBeforeLongBreak)
 
-        if let index = presets.firstIndex(where: { $0.id == preset.id }) {
-            presets[index] = preset
+        var updated = presets
+        if let index = updated.firstIndex(where: { $0.id == preset.id }) {
+            updated[index] = preset
         } else {
-            presets.append(preset)
+            updated.append(preset)
         }
+        presets = updated
 
         store.save(presets)
         editingPreset = nil
@@ -157,10 +159,12 @@ final class PomodoroModel: ObservableObject {
 
     func deletePreset(_ preset: PomodoroPreset) {
         guard presets.count > 1 else { return }
-        presets.removeAll { $0.id == preset.id }
-        if presets.isEmpty {
-            presets = [.classic]
+        var updated = presets
+        updated.removeAll { $0.id == preset.id }
+        if updated.isEmpty {
+            updated = [.classic]
         }
+        presets = updated
         store.save(presets)
     }
 
